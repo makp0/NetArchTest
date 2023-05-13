@@ -17,7 +17,10 @@ namespace NetArchTest.Rules.Extensions
         /// <returns>An indication of whether the property is readonly.</returns>
         public static bool IsReadonly(this PropertyDefinition propertyDefinition)
         {
-            return propertyDefinition.SetMethod == null || !propertyDefinition.SetMethod.IsPublic;
+            return propertyDefinition.SetMethod == null 
+                || !propertyDefinition.SetMethod.IsPublic 
+                || ((RequiredModifierType)propertyDefinition.SetMethod.ReturnType).ModifierType.FullName 
+                    == "System.Runtime.CompilerServices.IsExternalInit";
         }
         
         /// <summary>
